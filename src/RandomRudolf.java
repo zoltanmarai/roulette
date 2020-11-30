@@ -1,4 +1,34 @@
 public class RandomRudolf implements Player{
+    String name = "Rudolf";
+    int result;
+    int min = 10;
+
+
+    @Override
+    public int getResult() {
+        return result;
+    }
+
+    @Override
+    public int getMin() {
+        return min;
+    }
+
+    @Override
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    @Override
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String strategy() {
         String st = "piros";
@@ -13,7 +43,11 @@ public class RandomRudolf implements Player{
     }
 
     @Override
-    public int betStrategy(boolean winBefore) {
-        return 0;
+    public int betStrategy(boolean winBefore,int bet) {
+        double r = Math.random();
+        if (r >= 0.5) {
+            bet = 20;
+        }
+        return bet;
     }
 }

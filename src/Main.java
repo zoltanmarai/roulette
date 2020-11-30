@@ -10,8 +10,10 @@ public class Main {
     public static void main(String[] args) {
         roulette.fillMap();
         roulette.setPrizeList();
-        Player mb = new MartingelBela();
+        MartingelBela mb = new MartingelBela();
+        RandomRudolf rr = new RandomRudolf();
         luckyPack.add(mb);
+        luckyPack.add(rr);
         int menu;
         Scanner si = new Scanner(System.in);
 do {
@@ -22,11 +24,9 @@ do {
 
      menu = si.nextInt();
     if (menu == 1) {
-        System.out.println("Mennyi legyen a tét?");
-        int bet1= si.nextInt();
         System.out.println(" Hány pörgetés legyen?");
         int spin = si.nextInt();
-        simulation(bet1, spin);
+        simulation( spin);
     } else if (menu == 2) {
         interaction();
     }
@@ -35,11 +35,12 @@ do {
     si.close();
 
     }
-    static void  simulation(int min, int  spin) {
+    static void  simulation(int  spin) {
 
         int redCounter = 0;
         int blackCounter = 0;
         int zeroCounter = 0;
+        int result = 0;
         String r;
         String strategy = "";
         Map.Entry<Integer, String> rouletteEntry;
@@ -52,24 +53,34 @@ do {
 
             for (Player player : luckyPack) {
                 strategy = player.strategy();
+                System.out.println(strategy);
+                //System.out.println(r);
+                for (int j = 0; j < roulette.prizeList.size(); j++) {
+                    if (strategy.equals(roulette.prizeList.get(j).getName())) {
+                        prizeClass = new PrizeClass(roulette.prizeList.get(j).getName(), roulette.prizeList.get(j).getMultiplier(), roulette.prizeList.get(j).getOpposite());
+                    }
+                }
 
-                if (r.contains(player.strategy())) {
-                    min *= player.betStrategy(true);
+                if (r.contains(strategy)) {
+
                     redCounter++;
-
+                    player.setResult(player.getResult ()+(prizeClass.getMultiplier() - 1) *player.getMin());
+                    player.setMin(player.betStrategy(true,player.getMin()));
                 } else {
-                    min *= player.betStrategy(false);
+
                     blackCounter++;
+                    player.setResult(player.getResult()-(player.getMin() * (prizeClass.getMultiplier() - 1)));
+                    player.setMin(player.betStrategy(false,player.getMin()));
                 }
+
+
+
+               // System.out.println(" Nyert: " + redCounter + " " +  "Vesztett : " + (blackCounter + zeroCounter));
+                System.out.println(player.getName()+" "+player.getResult());
+                System.out.println(player.getMin());
             }
-            for (int j = 0; j < roulette.prizeList.size(); j++) {
-                if (strategy.equals(roulette.prizeList.get(j).getName())) {
-                    prizeClass = new PrizeClass(roulette.prizeList.get(j).getName(), roulette.prizeList.get(j).getMultiplier(), roulette.prizeList.get(j).getOpposite());
-                }
-            }
-            System.out.println(prizeClass.getName() + ": " + redCounter + " " + prizeClass.getOpposite() + " : " + (blackCounter + zeroCounter));
-            System.out.println((redCounter * (prizeClass.getMultiplier() - 1) * min) - (min * (prizeClass.getMultiplier() - 1) * (blackCounter + zeroCounter)));
         }
+
     }
     static void interaction(){
         String answer;
