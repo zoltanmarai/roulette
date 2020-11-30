@@ -35,14 +35,14 @@ do {
     si.close();
 
     }
-    static void  simulation(int min, int  spin){
+    static void  simulation(int min, int  spin) {
 
         int redCounter = 0;
         int blackCounter = 0;
         int zeroCounter = 0;
         String r;
-        String strategy="";
-        Map.Entry<Integer, String> rouletteEntry ;
+        String strategy = "";
+        Map.Entry<Integer, String> rouletteEntry;
         PrizeClass prizeClass = null;
 
         for (int i = 0; i < spin; i++) {
@@ -53,22 +53,23 @@ do {
             for (Player player : luckyPack) {
                 strategy = player.strategy();
 
-                if (r.contains(player.strategy())){
+                if (r.contains(player.strategy())) {
+                    min *= player.betStrategy(true);
                     redCounter++;
-                }else if (!r.contains(player.strategy())) {
-                    blackCounter++;
+
                 } else {
-                    zeroCounter++;
+                    min *= player.betStrategy(false);
+                    blackCounter++;
                 }
             }
-        }
-        for (int i = 0; i < roulette.prizeList.size(); i++) {
-            if (strategy.equals(roulette.prizeList.get(i).getName())) {
-                prizeClass = new PrizeClass(roulette.prizeList.get(i).getName(), roulette.prizeList.get(i).getMultiplier(), roulette.prizeList.get(i).getOpposite());
+            for (int j = 0; j < roulette.prizeList.size(); j++) {
+                if (strategy.equals(roulette.prizeList.get(j).getName())) {
+                    prizeClass = new PrizeClass(roulette.prizeList.get(j).getName(), roulette.prizeList.get(j).getMultiplier(), roulette.prizeList.get(j).getOpposite());
+                }
             }
+            System.out.println(prizeClass.getName() + ": " + redCounter + " " + prizeClass.getOpposite() + " : " + (blackCounter + zeroCounter));
+            System.out.println((redCounter * (prizeClass.getMultiplier() - 1) * min) - (min * (prizeClass.getMultiplier() - 1) * (blackCounter + zeroCounter)));
         }
-        System.out.println(prizeClass.getName()+": " +redCounter+" "+prizeClass.getOpposite()+ " : "+(blackCounter+zeroCounter));
-        System.out.println((redCounter* (prizeClass.getMultiplier()-1)*min)-(min*(prizeClass.getMultiplier()-1)*(blackCounter+zeroCounter)));
     }
     static void interaction(){
         String answer;
