@@ -9,6 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         roulette.fillMap();
+        Player mb = new MartingelBela();
+        luckyPack.add(mb);
         int menu;
         Scanner si = new Scanner(System.in);
 do {
@@ -23,7 +25,7 @@ do {
         int bet1= si.nextInt();
         System.out.println(" Hány pörgetés legyen?");
         int spin = si.nextInt();
-        simulation(bet1, spin, luckyPack);
+        simulation(bet1, spin);
     } else if (menu == 2) {
         interaction();
     }
@@ -31,12 +33,8 @@ do {
     while (menu != 0) ;
     si.close();
 
-        Player mb = new MartingelBela();
-        luckyPack.add(mb);
-
-
     }
-    static void  simulation(int min, int  spin, List<Player> players){
+    static void  simulation(int min, int  spin){
 
         int redCounter = 0;
         int blackCounter = 0;
@@ -49,6 +47,8 @@ do {
             System.out.println(rouletteEntry);
             r = rouletteEntry.getValue();
             for (Player player : luckyPack) {
+                System.out.println(player.strategy());
+
                 if (r.contains(player.strategy())){
                     redCounter++;
                 }else if (!r.contains(player.strategy())) {
