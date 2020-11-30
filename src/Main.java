@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
    static Roulette roulette = new Roulette();
+   static List<Player> luckyPack = new ArrayList<>();
+
     public static void main(String[] args) {
         roulette.fillMap();
         int menu;
@@ -19,7 +23,7 @@ do {
         int bet1= si.nextInt();
         System.out.println(" Hány pörgetés legyen?");
         int spin = si.nextInt();
-        simulation(bet1, spin);
+        simulation(bet1, spin, luckyPack);
     } else if (menu == 2) {
         interaction();
     }
@@ -27,10 +31,12 @@ do {
     while (menu != 0) ;
     si.close();
 
+        Player mb = new MartingelBela();
+        luckyPack.add(mb);
 
 
     }
-    static void  simulation(int min, int  spin){
+    static void  simulation(int min, int  spin, List<Player> players){
 
         int redCounter = 0;
         int blackCounter = 0;
@@ -42,12 +48,14 @@ do {
             rouletteEntry = roulette.spin();
             System.out.println(rouletteEntry);
             r = rouletteEntry.getValue();
-            if ( r.contains("piros")){
-                redCounter++;
-            }else if(r.contains("fekete")){
-                blackCounter++;
-            }else{
-                zeroCounter++;
+            for (Player player : luckyPack) {
+                if (r.contains(player.strategy())){
+                    redCounter++;
+                }else if (!r.contains(player.strategy())) {
+                    blackCounter++;
+                } else {
+                    zeroCounter++;
+                }
             }
         }
         System.out.println("Piros: " +redCounter+ " fekete: "+blackCounter+ " 0: "+zeroCounter);
