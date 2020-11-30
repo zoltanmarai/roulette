@@ -1,9 +1,8 @@
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Roulette {
     public  Map<Integer, String> numbersFeatures;
+    public List<PrizeClass> prizeList;
 
     public Roulette() {
 
@@ -66,5 +65,43 @@ public class Roulette {
         numbersFeatures.put(34,"piros,páros,3.harmad,2.fél,1.oszlop");
         numbersFeatures.put(35,"fekete,páratlan,3.harmad,2.fél,2.oszlop");
         numbersFeatures.put(36,"piros,páros,3.harmad,2.fél,3.oszlop");
+    }
+
+    public void setPrizeList() {
+        prizeList = new ArrayList<>();
+        PrizeClass  prizeClass= new PrizeClass("piros",2,"fekete,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("fekete",2,"piros,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("páros",2,"páratlan,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("páratlan",2,"páros,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("1.fél",2,"2.fél,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("2.fél",2,"1.fél,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("1.harmad",3,"2.harmad,3.harmad,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("2.harmad",3,"1.harmad,3.harmad,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("3.harmad",3,"2.harmad,1.harmad,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("1.oszlop",3,"2.oszlop,3.oszlop,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("2.oszlop",3,"1.oszlop,3.oszlop,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("3.oszlop",3,"2.oszlop,1.oszlop,zöld");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("szám",35,"nincs");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass(" kettő szám",17,"nincs");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass("három szám",11,"nincs");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass(" négy szám",8,"nincs");
+        prizeList.add(prizeClass);
+        prizeClass= new PrizeClass(" hat szám",5,"nincs");
+        prizeList.add(prizeClass);
     }
 }

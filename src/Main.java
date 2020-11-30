@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         roulette.fillMap();
+        roulette.setPrizeList();
         Player mb = new MartingelBela();
         luckyPack.add(mb);
         int menu;
@@ -40,14 +41,17 @@ do {
         int blackCounter = 0;
         int zeroCounter = 0;
         String r;
+        String strategy="";
         Map.Entry<Integer, String> rouletteEntry ;
+        PrizeClass prizeClass = null;
 
         for (int i = 0; i < spin; i++) {
             rouletteEntry = roulette.spin();
             System.out.println(rouletteEntry);
             r = rouletteEntry.getValue();
+
             for (Player player : luckyPack) {
-                System.out.println(player.strategy());
+                strategy = player.strategy();
 
                 if (r.contains(player.strategy())){
                     redCounter++;
@@ -58,8 +62,13 @@ do {
                 }
             }
         }
-        System.out.println("Piros: " +redCounter+ " fekete: "+blackCounter+ " 0: "+zeroCounter);
-        System.out.println((redCounter*min)-min*(blackCounter+zeroCounter));
+        for (int i = 0; i < roulette.prizeList.size(); i++) {
+            if (strategy.equals(roulette.prizeList.get(i).getName())) {
+                prizeClass = new PrizeClass(roulette.prizeList.get(i).getName(), roulette.prizeList.get(i).getMultiplier(), roulette.prizeList.get(i).getOpposite());
+            }
+        }
+        System.out.println(prizeClass.getName()+": " +redCounter+" "+prizeClass.getOpposite()+ " : "+(blackCounter+zeroCounter));
+        System.out.println((redCounter* (prizeClass.getMultiplier()-1)*min)-(min*(prizeClass.getMultiplier()-1)*(blackCounter+zeroCounter)));
     }
     static void interaction(){
         String answer;
