@@ -86,33 +86,138 @@ do {
         String answer;
         String r;
         Map.Entry<Integer, String> rouletteEntry ;
+        PrizeClass prizeClass = null;
+        int bet1 = 0;
         Scanner sc = new Scanner(System.in);
         boolean play = true;
         System.out.println("Mennyi a tőkéd?");
         int pocketMoney = sc.nextInt();
         while ( play) {
+            System.out.println("Mire tennél?");
+            System.out.println("Pirosra -----> 1-es gomb");
+            System.out.println("Feketére -----> 2-es gomb");
+            System.out.println("Párosra -----> 3-es gomb");
+            System.out.println("Páratlanra -----> 4-es gomb");
+            System.out.println("1.fél(1-18)-----> 5-es gomb");
+            System.out.println("2.fél(19-36) -----> 6-es gomb");
+            System.out.println("1.harmad(1-12) -----> 7-es gomb");
+            System.out.println("2.harmad(13-24) -----> 8-es gomb");
+            System.out.println("3.harmad(25-36) -----> 9-es gomb");
+            System.out.println("1.oszlop -----> 10-es gomb");
+            System.out.println("2.oszlop -----> 11-es gomb");
+            System.out.println("3.oszlop -----> 12-es gomb");
+            System.out.println("1 db számra -----> 13-es gomb");
+            System.out.println("2 db számra -----> 14-es gomb");
+            System.out.println("3 db számra -----> 15-es gomb");
+            System.out.println("4 db számra -----> 16-es gomb");
+            System.out.println("6 db számra -----> 17-es gomb");
+            int var = sc.nextInt();
+            prizeClass = new PrizeClass(roulette.prizeList.get(var-1).getName(), roulette.prizeList.get(var-1).getMultiplier(), roulette.prizeList.get(var-1).getOpposite());
+
             System.out.println("Add meg a tétet.");
             int bet = sc.nextInt();
-            String s = "piros";
-            pocketMoney -= bet;
+            if( var < 13) {
+                String s = prizeClass.getName();
+                pocketMoney -= bet;
 
                 if (pocketMoney >= 0) {
                     rouletteEntry = roulette.spin();
                     System.out.println(rouletteEntry);
                     r = rouletteEntry.getValue();
                     if (r.contains(s)) {
-                        bet *= 2;
-                    } else if (r.contains("fekete")) {
+                        bet *= prizeClass.getMultiplier();
+                    } else if (r.contains(prizeClass.getOpposite())) {
                         bet = 0;
                     } else {
                         bet = 0;
                     }
                     System.out.println(" Ebben a körben ennyi pénzt nyertél: " + bet);
 
-                }else {
+                } else {
                     System.out.println("Nincs elég pénzed.");
                 }
-            pocketMoney += bet;
+            }else{
+
+                List<Integer> numbers = new ArrayList<>();
+                int num;
+                int number;
+                switch (var){
+
+                    case 13:
+                        do {
+                            System.out.println("Add meg a számot");
+                            number = sc.nextInt();
+                        }while (!(number>=0 && number<=36));
+                        numbers.add(number);
+                        break;
+                    case 14:
+                        do {
+                            System.out.println("Add meg a számot");
+                            number = sc.nextInt();
+                        }while (!(number>=0 && number<=33));
+                        do {
+                            System.out.println("Add meg a 2. számot");
+                            num = sc.nextInt();
+                        }while ((num != number+1 && num != number+3));
+                        numbers.add(number);
+                        numbers.add(num);
+                        break;
+                    case 15:
+                        do {
+                            System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
+                            number = sc.nextInt();
+                        }while (!(number>=0 && number<=33) || (number % 3!=1));
+                        numbers.add(number);
+                        numbers.add(number+1);
+                        numbers.add(number+2);
+                        break;
+                    case 16:
+                        do {
+                            System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
+                            number = sc.nextInt();
+                        }while (!(number>=0 && number<=32) || (number % 3!=0));
+                        numbers.add(number);
+                        numbers.add(number+1);
+                        numbers.add(number+3);
+                        numbers.add(number+4);
+                        break;
+                    case 17:
+                        do {
+                            System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
+                            number = sc.nextInt();
+                        }while (!(number>=0 && number<=30) || (number % 3!=1));
+                        numbers.add(number);
+                        numbers.add(number+1);
+                        numbers.add(number+2);
+                        numbers.add(number+3);
+                        numbers.add(number+4);
+                        numbers.add(number+5);
+
+                        break;
+
+                }
+                String s = prizeClass.getName();
+                pocketMoney -= bet;
+
+                if (pocketMoney >= 0) {
+                    rouletteEntry = roulette.spin();
+                    System.out.println(rouletteEntry);
+                    int win = rouletteEntry.getKey();
+                        bet1=0;
+                    for (int i = 0; i < numbers.size(); i++) {
+                        System.out.println(numbers.get(i));
+                        if (win == numbers.get(i)) {
+                            bet1= bet *prizeClass.getMultiplier();
+                        }
+                    }
+                    System.out.println(" Ebben a körben ennyi pénzt nyertél: " + bet1);
+
+                } else {
+                    System.out.println("Nincs elég pénzed.");
+                }
+            }
+
+            pocketMoney += bet1;
             System.out.println(" Összesen ennyi pénzed van most: " + pocketMoney);
 
             System.out.println("Akarsz még játszani?(igen/nem)");

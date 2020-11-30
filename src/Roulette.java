@@ -93,15 +93,15 @@ public class Roulette {
         prizeList.add(prizeClass);
         prizeClass= new PrizeClass("3.oszlop",3,"2.oszlop,1.oszlop,zöld");
         prizeList.add(prizeClass);
-        prizeClass= new PrizeClass("szám",35,"nincs");
+        prizeClass= new PrizeClass("szám",36,"nincs");
         prizeList.add(prizeClass);
-        prizeClass= new PrizeClass(" kettő szám",17,"nincs");
+        prizeClass= new PrizeClass(" kettő szám",18,"nincs");
         prizeList.add(prizeClass);
-        prizeClass= new PrizeClass("három szám",11,"nincs");
+        prizeClass= new PrizeClass("három szám",12,"nincs");
         prizeList.add(prizeClass);
-        prizeClass= new PrizeClass(" négy szám",8,"nincs");
+        prizeClass= new PrizeClass(" négy szám",9,"nincs");
         prizeList.add(prizeClass);
-        prizeClass= new PrizeClass(" hat szám",5,"nincs");
+        prizeClass= new PrizeClass(" hat szám",6,"nincs");
         prizeList.add(prizeClass);
     }
 }
