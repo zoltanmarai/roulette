@@ -1,6 +1,6 @@
 public class RandomRudolf implements Player{
     String name = "Rudolf";
-    int result;
+    int result = 1000;
     int min = 10;
 
 
@@ -30,14 +30,14 @@ public class RandomRudolf implements Player{
     }
 
     @Override
-    public String strategy() {
-        String st = "piros";
+    public int strategy() {
+        int st = 1;
         int random = (int)(Math.random() * 2);
         if(random == 0) {
-            st = "piros";
+            st = 0;
         }
         else {
-            st = "fekete";
+            st = 1;
         }
         return st;
     }

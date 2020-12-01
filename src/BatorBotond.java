@@ -1,6 +1,6 @@
 public class BatorBotond implements Player {
         String name = "Boti";
-        int result;
+        int result= 1000;
         int min = 100;
         @Override
         public String getName() {
@@ -27,8 +27,8 @@ public class BatorBotond implements Player {
         }
 
         @Override
-        public String strategy() {
-            String st = "piros";
+        public int  strategy() {
+            int st = 0;
             return st;
         }
 
