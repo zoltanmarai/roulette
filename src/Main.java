@@ -10,6 +10,8 @@ public class Main {
     public static void main(String[] args) {
         roulette.fillMap();
         roulette.setPrizeList();
+        Table table = new Table();
+        table.createTable();
         MartingelBela mb = new MartingelBela();
         RandomRudolf rr = new RandomRudolf();
         GyavaGyuszi gg = new GyavaGyuszi();
