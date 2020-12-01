@@ -6,16 +6,19 @@ import java.util.Scanner;
 public class Main {
    static Roulette roulette = new Roulette();
    static List<Player> luckyPack = new ArrayList<>();
-   static Table table = new Table();
 
     public static void main(String[] args) {
         roulette.fillMap();
         roulette.setPrizeList();
         MartingelBela mb = new MartingelBela();
         RandomRudolf rr = new RandomRudolf();
+        GyavaGyuszi gg = new GyavaGyuszi();
+        BatorBotond bb = new BatorBotond();
         luckyPack.add(mb);
         luckyPack.add(rr);
-        table.createTable();
+        luckyPack.add(gg);
+        luckyPack.add(bb);
+
         int menu;
         Scanner si = new Scanner(System.in);
 do {
@@ -100,7 +103,7 @@ do {
             System.out.println("Feketére ------------> 2-es gomb");
             System.out.println("Párosra -------------> 3-es gomb");
             System.out.println("Páratlanra ----------> 4-es gomb");
-            System.out.println("1.fél(1-18)----------> 5-es gomb");
+            System.out.println("1.fél(1-18) ---------> 5-es gomb");
             System.out.println("2.fél(19-36) --------> 6-es gomb");
             System.out.println("1.harmad(1-12) ------> 7-es gomb");
             System.out.println("2.harmad(13-24) -----> 8-es gomb");
@@ -134,12 +137,13 @@ do {
                         bet = 0;
                     }
                     System.out.println(" Ebben a körben ennyi pénzt nyertél: " + bet);
-
-                } else {
+                    pocketMoney += bet;
+                }  else  if (pocketMoney+bet <= 0){
                     System.out.println("Nincs elég pénzed.");
+                } else {
+                    pocketMoney+=bet;
                 }
             }else{
-
                 List<Integer> numbers = new ArrayList<>();
                 int num;
                 int number;
@@ -153,14 +157,21 @@ do {
                         numbers.add(number);
                         break;
                     case 14:
+
                         do {
                             System.out.println("Add meg a számot");
                             number = sc.nextInt();
                         }while (!(number>=0 && number<=33));
+                        boolean a;
                         do {
+                             a = false;
                             System.out.println("Add meg a 2. számot");
                             num = sc.nextInt();
-                        }while ((num != number+1 && num != number+3));
+                            if(number % 3 == 0 && num == number+1){
+                                a = true;
+                            }
+
+                        }while ((num != number+1 && num != number+3) || a);
                         numbers.add(number);
                         numbers.add(num);
                         break;
@@ -210,16 +221,18 @@ do {
                         System.out.println(numbers.get(i));
                         if (win == numbers.get(i)) {
                             bet1= bet *prizeClass.getMultiplier();
+
                         }
                     }
                     System.out.println(" Ebben a körben ennyi pénzt nyertél: " + bet1);
-
-                } else {
+                    pocketMoney += bet1;
+                } else  if (pocketMoney+bet <= 0){
                     System.out.println("Nincs elég pénzed.");
+                } else {
+                    pocketMoney+=bet;
                 }
             }
 
-            pocketMoney += bet1;
             System.out.println(" Összesen ennyi pénzed van most: " + pocketMoney);
 
             System.out.println("Akarsz még játszani?(igen/nem)");
