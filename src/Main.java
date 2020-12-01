@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
    static Roulette roulette = new Roulette();
    static List<Player> luckyPack = new ArrayList<>();
+   static Table table = new Table();
 
     public static void main(String[] args) {
         roulette.fillMap();
@@ -14,6 +15,7 @@ public class Main {
         RandomRudolf rr = new RandomRudolf();
         luckyPack.add(mb);
         luckyPack.add(rr);
+        table.createTable();
         int menu;
         Scanner si = new Scanner(System.in);
 do {
@@ -94,23 +96,23 @@ do {
         int pocketMoney = sc.nextInt();
         while ( play) {
             System.out.println("Mire tennél?");
-            System.out.println("Pirosra -----> 1-es gomb");
-            System.out.println("Feketére -----> 2-es gomb");
-            System.out.println("Párosra -----> 3-es gomb");
-            System.out.println("Páratlanra -----> 4-es gomb");
-            System.out.println("1.fél(1-18)-----> 5-es gomb");
-            System.out.println("2.fél(19-36) -----> 6-es gomb");
-            System.out.println("1.harmad(1-12) -----> 7-es gomb");
+            System.out.println("Pirosra -------------> 1-es gomb");
+            System.out.println("Feketére ------------> 2-es gomb");
+            System.out.println("Párosra -------------> 3-es gomb");
+            System.out.println("Páratlanra ----------> 4-es gomb");
+            System.out.println("1.fél(1-18)----------> 5-es gomb");
+            System.out.println("2.fél(19-36) --------> 6-es gomb");
+            System.out.println("1.harmad(1-12) ------> 7-es gomb");
             System.out.println("2.harmad(13-24) -----> 8-es gomb");
             System.out.println("3.harmad(25-36) -----> 9-es gomb");
-            System.out.println("1.oszlop -----> 10-es gomb");
-            System.out.println("2.oszlop -----> 11-es gomb");
-            System.out.println("3.oszlop -----> 12-es gomb");
-            System.out.println("1 db számra -----> 13-es gomb");
-            System.out.println("2 db számra -----> 14-es gomb");
-            System.out.println("3 db számra -----> 15-es gomb");
-            System.out.println("4 db számra -----> 16-es gomb");
-            System.out.println("6 db számra -----> 17-es gomb");
+            System.out.println("1.oszlop -----------> 10-es gomb");
+            System.out.println("2.oszlop -----------> 11-es gomb");
+            System.out.println("3.oszlop -----------> 12-es gomb");
+            System.out.println("1 db számra --------> 13-es gomb");
+            System.out.println("2 db számra --------> 14-es gomb");
+            System.out.println("3 db számra --------> 15-es gomb");
+            System.out.println("4 db számra --------> 16-es gomb");
+            System.out.println("6 db számra --------> 17-es gomb");
             int var = sc.nextInt();
             prizeClass = new PrizeClass(roulette.prizeList.get(var-1).getName(), roulette.prizeList.get(var-1).getMultiplier(), roulette.prizeList.get(var-1).getOpposite());
 
@@ -175,7 +177,7 @@ do {
                         do {
                             System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=32) || (number % 3!=0));
+                        }while (!(number>=0 && number<=32) || (number % 3==0));
                         numbers.add(number);
                         numbers.add(number+1);
                         numbers.add(number+3);
