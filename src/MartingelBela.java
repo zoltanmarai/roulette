@@ -1,6 +1,6 @@
 public class MartingelBela implements Player {
     String name = "Béla";
-    int result;
+    int result = 1000;
     int min = 10;
     @Override
     public String getName() {
@@ -27,8 +27,8 @@ public class MartingelBela implements Player {
     }
 
     @Override
-    public String strategy() {
-        String st = "piros";
+    public int  strategy() {
+        int st = 0;
         return st;
     }
 

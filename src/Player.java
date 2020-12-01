@@ -1,7 +1,7 @@
 public interface Player {
 
 
-    public String strategy();
+    public int strategy();
 
     public int betStrategy(boolean winBefore, int bet);
 
