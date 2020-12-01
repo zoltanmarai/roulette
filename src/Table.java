@@ -7,6 +7,8 @@ public class Table {
     private String ANSI_GREEN = "\u001B[32m";
     private String ANSI_WHITE = "\u001B[37m";
     private String ANSI_BLUE = "\u001B[34m";
+    private String coin = "\u00A9";
+
 
 
     public String[][] createTable() {
@@ -81,7 +83,7 @@ public class Table {
         table[6][7] = "+";
         table[6][8] = "--";
 
-        table[7][0] = ANSI_GREEN + "1%" + ANSI_BLACK;
+        table[7][0] = ANSI_BLUE + "1%" + ANSI_BLACK;
         table[7][1] = "|";
         table[7][2] = "  ";
         table[7][3] = "|";
@@ -183,7 +185,7 @@ public class Table {
         table[16][8] = "--";
 
 
-        table[17][0] = ANSI_GREEN + "0%" + ANSI_BLACK;
+        table[17][0] = ANSI_BLUE + "0%" + ANSI_BLACK;
         table[17][1] = "|";
         table[17][2] = "  ";
         table[17][3] = "|";
@@ -301,6 +303,107 @@ public class Table {
         System.out.println(Arrays.toString(table[25]));
 
         return table;
+    }
+
+    public void takeCoin(int var, int number, int num){
+
+        if (var == 1){
+            table[9][0] = ANSI_RED + "r" + ANSI_BLACK + ANSI_GREEN + coin + ANSI_BLACK;
+        }
+        if (var == 2){
+            table[13][0] = "b" + ANSI_GREEN + coin + ANSI_BLACK;
+        }
+        if (var == 3){
+            table[17][0] = ANSI_BLUE + "0" + coin + ANSI_BLACK;
+        }
+        if (var == 4){
+            table[7][0] = ANSI_BLUE + "1" + coin + ANSI_BLACK;
+        }
+        if (var == 5){
+            table[3][0] = ANSI_GREEN + coin + ANSI_BLUE + "-" + ANSI_BLACK;
+        }
+        if (var == 6){
+            table[21][0] = ANSI_GREEN + coin + ANSI_BLUE +  "-" + ANSI_BLACK;
+        }
+        if (var == 7){
+            table[3][2] = ANSI_GREEN + coin + ANSI_BLUE + "-" + ANSI_BLACK;
+        }
+        if (var == 8){
+            table[13][2] = ANSI_GREEN + coin + ANSI_BLUE +  "-" + ANSI_BLACK;
+        }
+        if (var == 9){
+            table[21][2] = ANSI_GREEN + coin + ANSI_BLUE +  "-" + ANSI_BLACK;
+        }
+        if (var == 10){
+            table[25][4] = " " + ANSI_GREEN + coin + ANSI_BLACK;
+        }
+        if (var == 11){
+            table[25][6] = " " + ANSI_GREEN + coin + ANSI_BLACK;
+        }
+        if(var == 12){
+            table[25][8] = " " + ANSI_GREEN + coin + ANSI_BLACK;
+        }
+        if(var == 13){
+            String s = null;
+            for(int i =0; i < table.length; i++)
+            for(int j = 4; j < table[i].length; j++){
+                if( String.valueOf(number).equals(table[i][j])){
+                    s = table[i][j];
+                    s = s.charAt(0) + ANSI_GREEN + coin + ANSI_BLACK;
+                    table[i][j] = s;
+                }
+            }
+        }
+        if(var == 14){
+            for(int i =0; i < table.length; i++)
+                for(int j = 4; j < table[i].length; j++){
+                    if( String.valueOf(number).equals(table[i][j]) && String.valueOf(num).equals(table[i][j + 2])){
+                        table[i][j + 1] = ANSI_GREEN + coin + ANSI_BLACK;
+                    }
+                    else{
+                        table[i + 1][j] = ANSI_GREEN + coin + ANSI_BLACK;
+                    }
+                }
+        }
+        if(var == 15) {
+            for (int i = 0; i < table.length; i++)
+                for (int j = 4; j < table[i].length; j++) {
+                    if (String.valueOf(number).equals(table[i][j])) {
+                        if (j == 4 || j == 5) {
+                            table[i + 1][j + 1] = ANSI_GREEN + coin + ANSI_BLACK;
+                        } else {
+                            table[i + 1][j - 1] = ANSI_GREEN + coin + ANSI_BLACK;
+                        }
+                    }
+                }
+        }
+
+        System.out.println(Arrays.toString(table[0]));
+        System.out.println(Arrays.toString(table[1]));
+        System.out.println(Arrays.toString(table[2]));
+        System.out.println(Arrays.toString(table[3]));
+        System.out.println(Arrays.toString(table[4]));
+        System.out.println(Arrays.toString(table[5]));
+        System.out.println(Arrays.toString(table[6]));
+        System.out.println(Arrays.toString(table[7]));
+        System.out.println(Arrays.toString(table[8]));
+        System.out.println(Arrays.toString(table[9]));
+        System.out.println(Arrays.toString(table[10]));
+        System.out.println(Arrays.toString(table[11]));
+        System.out.println(Arrays.toString(table[12]));
+        System.out.println(Arrays.toString(table[13]));
+        System.out.println(Arrays.toString(table[14]));
+        System.out.println(Arrays.toString(table[15]));
+        System.out.println(Arrays.toString(table[16]));
+        System.out.println(Arrays.toString(table[17]));
+        System.out.println(Arrays.toString(table[18]));
+        System.out.println(Arrays.toString(table[19]));
+        System.out.println(Arrays.toString(table[20]));
+        System.out.println(Arrays.toString(table[21]));
+        System.out.println(Arrays.toString(table[22]));
+        System.out.println(Arrays.toString(table[23]));
+        System.out.println(Arrays.toString(table[24]));
+        System.out.println(Arrays.toString(table[25]));
     }
 
     @Override

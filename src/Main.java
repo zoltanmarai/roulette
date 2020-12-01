@@ -6,11 +6,12 @@ import java.util.Scanner;
 public class Main {
    static Roulette roulette = new Roulette();
    static List<Player> luckyPack = new ArrayList<>();
+   static Table table = new Table();
 
     public static void main(String[] args) {
         roulette.fillMap();
         roulette.setPrizeList();
-        Table table = new Table();
+    //    Table table = new Table();
         table.createTable();
         MartingelBela mb = new MartingelBela();
         RandomRudolf rr = new RandomRudolf();
@@ -123,6 +124,7 @@ do {
 
             System.out.println("Add meg a tétet.");
             int bet = sc.nextInt();
+            table.takeCoin(var, 0, 0);
             if( var < 13) {
                 String s = prizeClass.getName();
                 pocketMoney -= bet;
@@ -148,14 +150,14 @@ do {
             }else{
                 List<Integer> numbers = new ArrayList<>();
                 int num;
-                int number;
-                switch (var){
+                int number = 0;
+                switch (var) {
 
                     case 13:
                         do {
                             System.out.println("Add meg a számot");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=36));
+                        } while (!(number >= 0 && number <= 36));
                         numbers.add(number);
                         break;
                     case 14:
@@ -163,54 +165,56 @@ do {
                         do {
                             System.out.println("Add meg a számot");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=33));
+                        } while (!(number >= 0 && number <= 33));
                         boolean a;
                         do {
-                             a = false;
+                            a = false;
                             System.out.println("Add meg a 2. számot");
                             num = sc.nextInt();
-                            if(number % 3 == 0 && num == number+1){
+                            if (number % 3 == 0 && num == number + 1) {
                                 a = true;
                             }
 
-                        }while ((num != number+1 && num != number+3) || a);
+                        } while ((num != number + 1 && num != number + 3) || a);
                         numbers.add(number);
                         numbers.add(num);
+                    //    table.takeCoin(var, number, num);
+
                         break;
                     case 15:
                         do {
                             System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=33) || (number % 3!=1));
+                        } while (!(number >= 0 && number <= 33) || (number % 3 != 1));
                         numbers.add(number);
-                        numbers.add(number+1);
-                        numbers.add(number+2);
+                        numbers.add(number + 1);
+                        numbers.add(number + 2);
                         break;
                     case 16:
                         do {
                             System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=32) || (number % 3==0));
+                        } while (!(number >= 0 && number <= 32) || (number % 3 == 0));
                         numbers.add(number);
-                        numbers.add(number+1);
-                        numbers.add(number+3);
-                        numbers.add(number+4);
+                        numbers.add(number + 1);
+                        numbers.add(number + 3);
+                        numbers.add(number + 4);
                         break;
                     case 17:
                         do {
                             System.out.println("Add meg a számot, a kombinációból, a legkisebbet.");
                             number = sc.nextInt();
-                        }while (!(number>=0 && number<=30) || (number % 3!=1));
+                        } while (!(number >= 0 && number <= 30) || (number % 3 != 1));
                         numbers.add(number);
-                        numbers.add(number+1);
-                        numbers.add(number+2);
-                        numbers.add(number+3);
-                        numbers.add(number+4);
-                        numbers.add(number+5);
+                        numbers.add(number + 1);
+                        numbers.add(number + 2);
+                        numbers.add(number + 3);
+                        numbers.add(number + 4);
+                        numbers.add(number + 5);
 
                         break;
-
                 }
+
                 String s = prizeClass.getName();
                 pocketMoney -= bet;
 
@@ -226,6 +230,7 @@ do {
 
                         }
                     }
+                //    table.takeCoin(var, number, 0);
                     System.out.println(" Ebben a körben ennyi pénzt nyertél: " + bet1);
                     pocketMoney += bet1;
                 } else  if (pocketMoney+bet <= 0){
@@ -239,6 +244,7 @@ do {
 
             System.out.println("Akarsz még játszani?(igen/nem)");
             answer = sc.next();
+            table.createTable();
             answer= answer.toLowerCase();
             play = answer.equals("igen");
             if(pocketMoney<=0){
